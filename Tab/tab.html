@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tab</title>
+
+  <style type="text/css">
+    *{padding: 0; margin: 0; box-sizing: border-box;}
+    ul li{list-style: none; font-size: 0.2rem;box-sizing: border-box;}
+    .wrapper {display: flex; justify-content: center; align-items: center; flex-direction: column; height: 100vh;}
+    .row{width: 400px}
+    .f-row{display: flex;}
+    .f-row > li {flex: 1; text-align: center; line-height: 0.5rem; border: 1px solid #eee}
+    .tabs-panes > li{display: none}
+    .tabs-panes > li.active, .tabs-nav > li.active {display: block; background: #eee; color: red}
+  </style>
+  <script>
+        // rem 初始化
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function() {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;
+            if (clientWidth >= 750) {
+                docEl.style.fontSize = '100px';
+            } else {
+                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+            }
+        };
+        if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="row">
+      <ul class="tabs-nav f-row">
+        <li>first</li>
+        <li>second</li>
+      </ul>
+      <ul class="tabs-panes f-row">
+        <li>first content</li>
+        <li>second content</li>
+      </ul>
+    </div>
+  </div>
+  <script type="text/javascript" src="./tab.js"></script>
+  <script>
+    (function() {
+      var element = document.querySelectorAll('.row')[0]
+      var init = new Tabs({
+        element: element
+      })
+    })()
+  </script>
+</body>
+</html>
