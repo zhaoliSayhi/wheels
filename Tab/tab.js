@@ -23,13 +23,11 @@
       var tabNav = this.options.element.querySelector(this.options.navSelector)
       tabNav.addEventListener('click', function(e) {
         var li = e.target
-        var navs = this.querySelectorAll('li')
+        var navs = tabNav.querySelectorAll('li')
         var navArr = Array.prototype.slice.call(navs)
         var index = navArr.indexOf(li) // 选择的索引
         navStyle = navArr[index]
-        for(var i = 0; i < navs.length; i++) {
-          removeClass(navs[i], _this.options.activeClassName)
-        }
+        _this.removeOtherStyle(navs, _this.options.activeClassName)
         addClass(navStyle, _this.options.activeClassName)
 
         var panesNav = _this.options.element.querySelector(_this.options.panesSelector)
@@ -37,11 +35,14 @@
         var panesArr = Array.prototype.slice.call(panes)
         var panseShow = panesArr[index]
 
-        for(var i = 0; i < panes.length; i++) {
-          removeClass(panes[i], _this.options.activeClassName)
-        }
+        _this.removeOtherStyle(panes, _this.options.activeClassName)
         addClass(panseShow, _this.options.activeClassName)
       })
+    },
+    removeOtherStyle: function(el, activeClassName) {
+      for(var i = 0; i < el.length; i++) {
+        removeClass(el[i], activeClassName)
+      }
     },
     setDefaultTab: function() {
       this.options.element.querySelector(this.options.navSelector + '> li:first-child').click()
